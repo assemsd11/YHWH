@@ -132,26 +132,26 @@
 
     /* ── Filter bar ── */
     .filter-bar {
-      padding: 1.5rem 4rem;
-      display: flex;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
+  display: flex;
+  width: 100%;
+  gap: 16px;
+}
 
-    .filter-btn {
-      background: none;
-      border: 2px solid var(--border);
-      padding: 0.4rem 1.1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 3px;
-      color: var(--muted);
-      transition: all 0.2s;
-    }
+.filter-btn {
+  flex: 1;
+
+  background: none;
+  border: 2px solid var(--border);
+  padding: 0.4rem 1.1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px;
+  color: var(--muted);
+  transition: all 0.2s;
+}
 
     .filter-btn.active,
     .filter-btn:hover {
