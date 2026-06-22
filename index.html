@@ -92,7 +92,7 @@
     .btn-enter-product:hover {
       background: var(--accent);
       border-color: var(--accent);
-      color: var(--ink);
+      color: #fff;
     }
 
     .btn-enter-product svg {
@@ -133,27 +133,27 @@
 
     /* ── Filter bar ── */
     .filter-bar {
-  display: flex;
-  width: 100%;
-  gap: 16px;
-  margin-bottom: 32px;
-}
+      display: flex;
+      width: 100%;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding: 0 4rem;
+    }
 
-.filter-btn {
-  flex: 1;
-
-  background: none;
-  border: 2px solid var(--border);
-  padding: 0.4rem 1.1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 3px;
-  color: var(--muted);
-  transition: all 0.2s;
-}
+    .filter-btn {
+      flex: 1;
+      background: none;
+      border: 2px solid var(--border);
+      padding: 0.4rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 3px;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
 
     .filter-btn.active,
     .filter-btn:hover {
@@ -333,9 +333,10 @@
     }
 
     @media (max-width: 700px) {
-      header, .hero, .filter-bar { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .hero { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      header { padding: 1.2rem 1.5rem; }
+      .hero { padding: 2.5rem 1.5rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
       .hero-meta { text-align: left; }
+      .filter-bar { padding: 0 1.5rem; }
       nav { display: none; }
       .btn-enter-product span { display: none; }
     }
@@ -356,7 +357,7 @@
       <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <span>My Cart</span>
+      <span>Enter Product</span>
     </a>
   </div>
 </header>
