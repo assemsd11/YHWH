@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter Product — YHWH</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #EAF2F8;
+      --surface: #fff4ce;
+      --ink: #795c34;
+      --muted: #8a8880;
+      --accent: #b90e0a;
+      --border: #EAF2F8;
+      --border-input: #d4c9b8;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .header-right { display: flex; align-items: center; gap: 2.5rem; }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    nav a { text-decoration: none; color: inherit; transition: color 0.2s; }
+    nav a:hover { color: var(--ink); }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.25rem;
+      border-radius: 2px;
+      border: 1px solid var(--ink);
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-back:hover { background: var(--ink); color: #fff; }
+    .btn-back svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .page-hero {
+      padding: 4rem 4rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-hero h1 {
+      font-family: 'Times New Roman', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+
+    .form-wrap {
+      max-width: 780px;
+      margin: 3rem auto 5rem;
+      padding: 0 4rem;
+    }
+
+    .form-section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-input);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .field.span-2 { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    label .req { color: var(--accent); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="url"],
+    select {
+      background: var(--surface);
+      border: 1px solid var(--border-input);
+      border-radius: 2px;
+      padding: 0.7rem 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--ink);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px rgba(121,92,52,0.1);
+    }
+
+    input::placeholder { color: var(--muted); opacity: 0.6; }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0.9rem; top: 50%;
+      transform: translateY(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--muted);
+      pointer-events: none;
+    }
+
+    select { cursor: pointer; padding-right: 2rem; }
+
+    .hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+
+    .swatch-preview {
+      display: flex; gap: 5px; flex-wrap: wrap;
+      margin-top: 0.4rem; min-height: 16px;
+    }
+
+    .swatch {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+
+    .img-preview-wrap {
+      margin-top: 0.5rem;
+      width: 80px; height: 100px;
+      border: 1px solid var(--border-input);
+      border-radius: 2px;
+      overflow: hidden;
+      background: #f0ede7;
+      display: none;
+    }
+
+    .img-preview-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .submit-area {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-input);
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .btn-submit:hover:not(:disabled) { background: var(--accent); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .spinner {
+      width: 12px; height: 12px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .btn-submit.loading .spinner { display: block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .submit-note { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ── Success overlay ── */
+    .success-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(234,242,248,0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-overlay.visible { display: flex; }
+
+    .success-card {
+      background: var(--surface);
+      border: 1px solid var(--border-input);
+      border-radius: 3px;
+      padding: 3rem 3.5rem;
+      text-align: center;
+      max-width: 420px;
+      width: calc(100% - 3rem);
+      animation: slideUp 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .success-icon {
+      width: 48px; height: 48px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .success-icon svg { width: 20px; height: 20px; }
+
+    .success-title {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .success-title em { font-style: italic; color: var(--accent); }
+
+    .success-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+    }
+
+    .success-redirect {
+      margin-top: 1.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .success-redirect a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+      header { padding: 1.2rem 1.5rem; }
+      .page-hero { padding: 2.5rem 1.5rem 2rem; }
+      .form-wrap { padding: 0 1.5rem; margin: 2rem auto 4rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.span-2 { grid-column: 1; }
+      nav { display: none; }
+      .btn-back span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">YHWH<span></span></a>
+  <div class="header-right">
+    <nav>
+      <a href="index.html">Marketplace</a>
+      <a href="#">About us</a>
+      <a href="#">Sign in</a>
+    </nav>
+    <a href="index.html" class="btn-back">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7.5 2L3.5 6l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to shop</span>
+    </a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Inventory — Spring / Summer 2026</p>
+  <h1>Enter a <em>new</em> product</h1>
+</div>
+
+<div class="form-wrap">
+  <p class="form-section-label">Product details</p>
+
+  <div class="form-grid">
+
+    <div class="field span-2">
+      <label for="f-name">Product name <span class="req">*</span></label>
+      <input type="text" id="f-name" placeholder="e.g. Linen Summer Dress" />
+    </div>
+
+    <div class="field">
+      <label for="f-category">Category <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="f-category">
+          <option value="" disabled selected>Select a category</option>
+          <option>T-Shirts</option>
+          <option>Headwear</option>
+          <option>Hoodies</option>
+          <option>Phonecases</option>
+          <option>Tumblers</option>
+          <option>Bags &amp; Totes</option>
+          <option>Accessories</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-badge">Badge</label>
+      <div class="select-wrap">
+        <select id="f-badge">
+          <option value="">None</option>
+          <option value="New">New</option>
+          <option value="Sale">Sale</option>
+          <option value="Limited">Limited</option>
+          <option value="Sold Out">Sold Out</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field span-2">
+      <label for="f-sub">Short description</label>
+      <input type="text" id="f-sub" placeholder="e.g. 100% cotton · relaxed fit" />
+    </div>
+
+    <div class="field">
+      <label for="f-price">Price <span class="req">*</span></label>
+      <input type="text" id="f-price" placeholder="e.g. 22" />
+      <span class="hint">Numbers only — the $ is added automatically.</span>
+    </div>
+
+    <div class="field">
+      <label for="f-img">Image URL</label>
+      <input type="url" id="f-img" placeholder="https://…" />
+      <div class="img-preview-wrap" id="img-preview-wrap">
+        <img id="img-preview" src="" alt="Preview" />
+      </div>
+    </div>
+
+    <div class="field span-2">
+      <label for="f-colors">Color swatches</label>
+      <input type="text" id="f-colors" placeholder="#795c34, #b90e0a" />
+      <span class="hint">Comma-separated hex values — appear as dots on the card. Leave blank if not needed.</span>
+      <div class="swatch-preview" id="swatch-preview"></div>
+    </div>
+
+  </div>
+
+  <div class="submit-area">
+    <button class="btn-submit" id="submit-btn" type="button">
+      <div class="spinner" id="spinner"></div>
+      <span id="btn-label">Add to sheet</span>
+    </button>
+    <span class="submit-note">Saved directly to your Google Sheet.</span>
+  </div>
+</div>
+
+<div class="success-overlay" id="success-overlay">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 10.5l4.5 4.5 8-9" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 class="success-title">Product <em>added</em></h2>
+    <p class="success-sub">Saved to your sheet. It will appear on the site within a few minutes — Google's publishing cache refreshes automatically.</p>
+    <p class="success-redirect">
+      Returning to shop in <span id="countdown">5</span>s &nbsp;·&nbsp;
+      <a href="index.html">Go now</a>
+    </p>
+  </div>
+</div>
+
+<footer>© 2026 YHWH Co. — Free shipping on all orders</footer>
+
+<script>
+  // ── PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ─────────────────────────
+  // Steps to get this URL:
+  //   1. Open your Google Sheet → Extensions → Apps Script
+  //   2. Replace everything with the doGet() code shown below
+  //   3. Click Deploy → New deployment → Web app
+  //      Execute as: Me | Who has access: Anyone
+  //   4. Copy the Web App URL and paste it below
+  //
+  // ── APPS SCRIPT CODE (copy-paste this into your Apps Script editor) ─────────
+  //
+  //  function doGet(e) {
+  //    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  //    sheet.appendRow([
+  //      e.parameter['card-name']     || '',
+  //      e.parameter['card-category'] || '',
+  //      e.parameter['card-sub']      || '',
+  //      e.parameter['card-price']    || '',
+  //      e.parameter['img src']       || '',
+  //      e.parameter['badge']         || '',
+  //      e.parameter['colors']        || ''
+  //    ]);
+  //    return ContentService
+  //      .createTextOutput(JSON.stringify({status:'ok'}))
+  //      .setMimeType(ContentService.MimeType.JSON);
+  //  }
+  //
+  // ────────────────────────────────────────────────────────────────────────────
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzabObOhHY_AadnN9lAmJPU5I0w3eFJLuHwWbepHpD1H9ZecbCvqJs-PtyZMXrRpL8b/exec';
+
+  // ── Image preview ──────────────────────────────────────────────────────────
+  const imgInput    = document.getElementById('f-img');
+  const previewWrap = document.getElementById('img-preview-wrap');
+  const previewImg  = document.getElementById('img-preview');
+
+  imgInput.addEventListener('input', () => {
+    const url = imgInput.value.trim();
+    if (url) {
+      previewImg.src = url;
+      previewWrap.style.display = 'block';
+      previewImg.onerror = () => { previewWrap.style.display = 'none'; };
+    } else {
+      previewWrap.style.display = 'none';
+    }
+  });
+
+  // ── Swatch preview ─────────────────────────────────────────────────────────
+  document.getElementById('f-colors').addEventListener('input', function () {
+    document.getElementById('swatch-preview').innerHTML = this.value
+      .split(',')
+      .map(c => c.trim())
+      .filter(c => /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(c))
+      .map(c => `<div class="swatch" style="background:${c}"></div>`)
+      .join('');
+  });
+
+  // ── Submission ─────────────────────────────────────────────────────────────
+  document.getElementById('submit-btn').addEventListener('click', async () => {
+    const name     = document.getElementById('f-name').value.trim();
+    const category = document.getElementById('f-category').value.trim();
+    const price    = document.getElementById('f-price').value.trim();
+
+    // Highlight required fields
+    let missing = false;
+    ['f-name', 'f-category', 'f-price'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'var(--accent)';
+        el.addEventListener('input', () => { el.style.borderColor = ''; }, { once: true });
+        missing = true;
+      }
+    });
+    if (missing) return;
+
+    // Loading state
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+    document.getElementById('btn-label').textContent = 'Saving…';
+
+    // Build URL parameters — column names match your sheet headers exactly
+    const params = new URLSearchParams();
+    params.set('card-name',     name);
+    params.set('card-category', category);
+    params.set('card-sub',      document.getElementById('f-sub').value.trim());
+    params.set('card-price',    price);
+    params.set('img src',       document.getElementById('f-img').value.trim());
+    params.set('badge',         document.getElementById('f-badge').value.trim());
+    params.set('colors',        document.getElementById('f-colors').value.trim());
+
+    try {
+      await fetch(WEB_APP_URL + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors' // required for Google Apps Script cross-origin requests
+      });
+      showSuccess();
+    } catch (err) {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      document.getElementById('btn-label').textContent = 'Add to sheet';
+      alert('Could not reach the Apps Script URL.\n\nMake sure you have pasted your Web App URL correctly in add-product.html.\n\n' + err.message);
+    }
+  });
+
+  // ── Success + countdown ────────────────────────────────────────────────────
+  function showSuccess() {
+    document.getElementById('success-overlay').classList.add('visible');
+    let s = 5;
+    const el = document.getElementById('countdown');
+    const t = setInterval(() => {
+      s--;
+      el.textContent = s;
+      if (s <= 0) { clearInterval(t); window.location.href = 'index.html'; }
+    }, 1000);
+  }
+</script>
+</body>
+</html>
