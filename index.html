@@ -387,7 +387,7 @@
   // ─── Config ───────────────────────────────────────────────────────────────
   // Published Google Sheet → File › Share › Publish to web › CSV
   const SHEET_CSV_URL =
-    'https://docs.google.com/spreadsheets/d/e/2PACX-1vR41Mjl-i9vD9m01CC81y0NHYl7Y51CuucSGGxpO1fCx11nD_vUCVragew5RYu9jZHYnehWQ3hOD3hG/pub?output=csv';
+    'https://script.google.com/macros/s/AKfycbz3bKK3onbHrUN8-A313QwohiHELf6dI2HFGOTZ6Laom3qd4M2NUQOR1xkrmb7H0G_R/exec';
 
   // ─── CSV parser (handles quoted fields with commas) ───────────────────────
   // Detects ISO timestamp strings (e.g. 2026-06-22T03:03:06.387Z) so rows
@@ -537,7 +537,7 @@
     const grid = document.getElementById('grid');
 
     try {
-      const res = await fetch(SHEET_CSV_URL);
+      const res = await fetch(SHEET_CSV_URL + '&cachebust=' + Date.now());
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const products = parseCSV(text);
